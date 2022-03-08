@@ -1,16 +1,32 @@
+#include <string>
+#include "SDL.h"
+#include "InputHandler.h"
 #include "Enemy.h"
-Enemy::Enemy(const LoaderParams* pParams) :
-	SDLGameObject(pParams)
-{}
+#include "Board.h"
+Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {
+	
+}
+
 void Enemy::draw()
 {
-	SDLGameObject::draw(); // we now use SDLGameObject
+	SDLGameObject::draw();
 }
+
 void Enemy::update()
-{
-	m_position.setX(m_position.getX() + 1);
-	m_position.setY(m_position.getY() + 1);
+{  
+	
+	m_currentFrame = int(((SDL_GetTicks() / 100)%1 ));
+	
+	
 }
-void Enemy::clean()
-{
+
+void Enemy::handleInput() {
+	int x = TheBoard::Instance()->getR_X();
+	int y = TheBoard::Instance()->getR_Y();
+	m_position.setX(x);
+	m_position.setY(y);
+	return;
 }
+
+
+void Enemy::clean() {}

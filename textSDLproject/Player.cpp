@@ -1,21 +1,38 @@
+#include <string>
+#include "SDL.h"
 
 #include "Player.h"
-#include "Game.h"
-Player::Player(const LoaderParams* pParams) :
-	SDLGameObject(pParams)
-{}
+#include "InputHandler.h"
+#include <iostream>
+#include "Board.h"
+
+Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+
 void Player::draw()
 {
-	SDLGameObject::draw(); // we now use SDLGameObject
+
+	SDLGameObject::draw();
+	
 }
 void Player::update()
 {
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 8));
-	m_acceleration.setX(1);
-	SDLGameObject::update();
+	//handleInput();
+
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 1));
+
+	//SDLGameObject::update();
 }
-void Player::clean()
+
+
+
+void Player::handleInput()
 {
+	
+	int x = TheBoard::Instance()->getR_X();
+	int y = TheBoard::Instance()->getR_Y();
+	m_position.setX(x);
+	m_position.setY(y);
+	return;
 }
 
-
+void Player::clean() {}
