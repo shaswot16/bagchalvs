@@ -25,19 +25,34 @@ public:
 	virtual bool onExit();
 	
 	virtual std::string getStateID() const { return s_playID; }
-	void turnTiger(SDLGameObject* , SDLGameObject* , SDLGameObject* , SDLGameObject* ,SDLGameObject* ,  SDLGameObject*,
+	/*void turnTiger(SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*,
 		           SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, 
 					SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*,
-					SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*);
+					SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*); */
 	
-	void turnGoat(SDLGameObject* goat1);
+	
+	void turnTiger();
+	
+	void limitmoves(SDLGameObject*);
+
+	bool killer(int, int);
 	int x, y;
+
+	void dynamiccasting();
+
+	std::vector<SDLGameObject*>m_SDLgameObjectsTiger;
+	std::vector<SDLGameObject*>m_SDLgameObjectsGoat;
+
 	
 private:
 	
 	
+
 	static const std::string s_playID;
 	std::vector<GameObject*> m_gameObjects;
+
+	std::vector<SDLGameObject*>m_SDLgameObjects;
+
 
 	
 

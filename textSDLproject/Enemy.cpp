@@ -3,6 +3,8 @@
 #include "InputHandler.h"
 #include "Enemy.h"
 #include "Board.h"
+#include<iostream>
+#include "PlayState.h"
 Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {
 	
 }
@@ -21,10 +23,13 @@ void Enemy::update()
 }
 
 void Enemy::handleInput() {
+
 	int x = TheBoard::Instance()->getR_X();
 	int y = TheBoard::Instance()->getR_Y();
+
 	m_position.setX(x);
 	m_position.setY(y);
+	return;
 	return;
 }
 

@@ -28,8 +28,10 @@ void Player::update()
 void Player::handleInput()
 {
 	
+	
 	int x = TheBoard::Instance()->getR_X();
 	int y = TheBoard::Instance()->getR_Y();
+
 	m_position.setX(x);
 	m_position.setY(y);
 	return;
