@@ -5,14 +5,17 @@
 #include "GameOverState.h"
 #include "AnimatedGraphic.h"
 #include "Board.h"
-
+#include <cmath>
+#include "Game.h"
 
 const std::string PlayState::s_playID = "PLAY";
+
+//extern int gameTurn;
 
 
 void PlayState::update()
 {
-	static int turnSwitch=0;
+	
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
 		TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -27,7 +30,26 @@ void PlayState::update()
 	
 	
 	dynamiccasting();
-	turnTiger();
+	
+	int b = gameTurn % 2;
+	std::cout << "Game Turn" << gameTurn << std::endl;
+
+	switch (b) {
+
+	case(0) :
+		std::cout << "Inside case o" << std::endl;
+		turnGoat();
+		break;
+	case(1) :
+		std::cout << "Inside case 1" << std::endl;
+
+		turnTiger();
+		break;
+	default:
+		std::cout << "wrong input" << std::endl;
+		break;
+	}
+	
 	
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_BACKSPACE))
 	{
@@ -625,58 +647,95 @@ void PlayState::handleState(){
 
 void PlayState::limitmoves(SDLGameObject* tiger)
 {
-	
+
 
 	int x = TheBoard::Instance()->getR_X();
 	int y = TheBoard::Instance()->getR_Y();
 
-	if (abs(tiger->getPosition().getX() - x) <= 200
-		&& abs(tiger->getPosition().getY() - y) <= 200)
-	{
-		tiger->handleInput();
-	}else if (abs(tiger->getPosition().getX() - x) <= 400
-		&& abs(tiger->getPosition().getY() - y) <= 400)
-	{
-		int midx = (x + tiger->getPosition().getX()) / 2;
-		int midy = (y + tiger->getPosition().getY()) / 2;
-		
+	int x_pos = (((int)abs(tiger->getPosition().getX())) / 200) % 2;
+	int y_pos = (((int)abs(tiger->getPosition().getY())) / 200) % 2;
 
-		if (killer(midx, midy))
+
+	
+	if((x_pos==1 && y_pos==0) || (x_pos == 0 && y_pos == 1))
+	{
+		int a = abs(tiger->getPosition().getX() - x);
+		int b = abs(tiger->getPosition().getY() - y);
+		float c = (float)sqrt(abs(pow(a, 2) + pow(b, 2)));
+
+		if (c == 200)
 		{
+			std::cout << "handle" << std::endl;
 			tiger->handleInput();
 		}
-		else std::cout << "Invalid move" << std::endl;
+		else if (c == 400)
+		{
+			int midx = (x + tiger->getPosition().getX()) / 2;
+			int midy = (y + tiger->getPosition().getY()) / 2;
+
+
+			if (killer(midx, midy))
+			{
+				tiger->handleInput();
+			}
+			else std::cout << "Invalid move" << std::endl;
+		}
 	}
+		
+	else {
+		int a = abs(tiger->getPosition().getX() - x);
+		int b = abs(tiger->getPosition().getY() - y);
+		double e = sqrt(abs(pow(a, 2) + pow(b, 2)));
+		double d = 200 * sqrt(2);
+	    std::cout <<"value of e: "<< e << std::endl;
+		std::cout << "value of d: " << d << std::endl;
+
+
+		if (e == 200 || e==(double)200*sqrt(2) )
+		{
+			std::cout << "handle" << std::endl;
+			tiger->handleInput();
+		}
+		else if (e == 400 || e==400*sqrt(2))
+		{
+			int midx = (x + tiger->getPosition().getX()) / 2;
+			int midy = (y + tiger->getPosition().getY()) / 2;
+
+
+			if (killer(midx, midy))
+			{
+				tiger->handleInput();
+			}
+			else std::cout << "Invalid move" << std::endl;
+
+	    }
+	
+	}
+	
 
 }
 
 
 bool PlayState::killer(int midx,int midy)
 {
-	//int size = m_SDLgameObjects.size();
+	
 	int a;
 	int b;
-	/*for (int i = 4;i < size;i++)
-	{
+	
+	for (int i = 4;i <= 23; i++) {
+		std::cout << "inside killer"<<std::endl;
 		a = m_SDLgameObjects[i]->getPosition().getX();
-		b = m_SDLgameObjects[i]->getPosition(). getY();
+		b = m_SDLgameObjects[i]->getPosition().getY();
 
 		if (a == midx && b == midy)
 		{
-			return m_SDLgameObjects[i]->getm_textureID();
+			std::cout << "inside midpoint" << std::endl;
+			TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
+
+			m_SDLgameObjects.erase(m_SDLgameObjects.begin() + i);
+
+			return true;
 		}
-	}*/
-	a = m_SDLgameObjects[23]->getPosition().getX();
-	b = m_SDLgameObjects[23]->getPosition().getY();
-
-	if (a == midx && b == midy)
-	{
-		
-		TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[23]->getm_textureID());
-	
-	    m_SDLgameObjects.erase(m_SDLgameObjects.begin()+23);
-
-		return true;
 	}
 	return false;
 }
@@ -723,24 +782,19 @@ void PlayState::turnTiger()
 	if (mouspos_X == m_SDLgameObjects[3]->getPosition().getX() && mouspos_Y == m_SDLgameObjects[3]->getPosition().getY()) {
 		palo = 4;
 	}
-	/*if (mouspos_X == m_SDLgameObjects[4]->getPosition().getX() && mouspos_Y == m_SDLgameObjects[4]->getPosition().getY()) {
-		palo = 4;
-	}
-	if (mouspos_X == m_SDLgameObjects[5]->getPosition().getX() && mouspos_Y == m_SDLgameObjects[5]->getPosition().getY()) {
-		palo = 5;
-	}*/
+	
+	
+	
+	/*if ((pMousePos2->getX() < (m_SDLgameObjectsGoat[18]->getPosition().getX() + 128)
+		&& (pMousePos2->getX() > m_SDLgameObjectsGoat[18]->getPosition().getX())
+		&& (pMousePos2->getY() < (m_SDLgameObjectsGoat[18]->getPosition().getY() + 128))
+		&& (pMousePos2->getY() > m_SDLgameObjectsGoat[18]->getPosition().getY()))) {
+		if (TheInputHandler::Instance()->getMouseButtonState(LEFT)) {
 
-
-
-	if((pMousePos2->getX() < (m_SDLgameObjectsGoat[19]->getPosition().getX() + 128)
-		&&( pMousePos2->getX() > m_SDLgameObjectsGoat[19]->getPosition().getX())
-		&&( pMousePos2->getY() < (m_SDLgameObjectsGoat[19]->getPosition().getY() + 128))
-			&& (pMousePos2->getY() > m_SDLgameObjectsGoat[19]->getPosition().getY()))) {
-		if (TheInputHandler::Instance()->getMouseButtonState(LEFT) ){
-
-			palo=5;
+			palo = 6;
 		}
-	}
+	}*/
+	
 	/*if ((pMousePos2->getX() < (goat2->getPosition().getX() + 128)
 		&& (pMousePos2->getX() > goat2->getPosition().getX())
 		&& (pMousePos2->getY() < (goat2->getPosition().getY() + 40))
@@ -942,74 +996,14 @@ void PlayState::turnTiger()
 		break;
 	case 2:
 		limitmoves(m_SDLgameObjectsTiger[1]);
-		break;
+		break; 
 	case 3:
 		limitmoves(m_SDLgameObjectsTiger[2]);
 		break;
 	case 4:
 		limitmoves(m_SDLgameObjectsTiger[3]);
 		break;
-	case 5:
-		m_SDLgameObjects[23]->handleInput();
-		break;
-	/*case 6:
-		goat2->handleInput();
-		break;
-	case 7:
-		goat3->handleInput();
-		break;
-	case 8:
-		goat4->handleInput();
-		break;
-	case 9:
-		goat5->handleInput();
-		break;
-	case 10:
-		goat6->handleInput();
-		break;
-	case 11:
-		goat7->handleInput();
-		break;
-	case 12:
-		goat8->handleInput();
-		break;
-	case 13:
-		goat9->handleInput();
-		break;
-	case 14:
-		goat10->handleInput();
-		break;
-	case 15:
-		goat11->handleInput();
-		break;
-	case 16:
-		goat12->handleInput();
-		break;
-	case 17:
-		goat13->handleInput();
-		break;
-	case 18:
-		goat14->handleInput();
-		break;
-	case 19:
-		goat15->handleInput();
-		break;
-	case 20:
-		goat16->handleInput();
-		break;
-	case 21:
-		goat17->handleInput();
-		break;
-	case 22:
-		goat18->handleInput();
-		break;
-	case 23:
-		goat19->handleInput();
-		break;
-	case 24:
-		goat20->handleInput();
-		break;
-	*/
+	
 
 	default:
 		break;
@@ -1017,6 +1011,37 @@ void PlayState::turnTiger()
 	}
 }
 
+void PlayState::turnGoat() {
+
+	static int indexOfGoat = 4;
+	//bool rightPosition;
+	int mouspos_X = TheBoard::Instance()->getR_X();
+	int mouspos_Y = TheBoard::Instance()->getR_Y();
+
+	 static int correct = 0;
+
+	for (int i = 0;i <= 23;i++) {
+		if (( m_SDLgameObjects[i]->getPosition().getX()) != mouspos_X && ( m_SDLgameObjects[i]->getPosition().getY()) != mouspos_Y) {
+			correct++;
+
+		}
+	}
+
+	if (correct == 23) {
+		m_SDLgameObjects[indexOfGoat]->getPosition().setX(mouspos_X);
+		m_SDLgameObjects[indexOfGoat]->getPosition().setY(mouspos_Y);
+
+		indexOfGoat++;
+		correct = 0;
+		gameTurn++;
+
+
+
+	}
+
+
+
+}
 
 
 

@@ -25,13 +25,10 @@ public:
 	virtual bool onExit();
 	
 	virtual std::string getStateID() const { return s_playID; }
-	/*void turnTiger(SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*,
-		           SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, 
-					SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*,
-					SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*, SDLGameObject*); */
 	
 	
 	void turnTiger();
+	void turnGoat();
 	
 	void limitmoves(SDLGameObject*);
 

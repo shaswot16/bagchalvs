@@ -14,6 +14,9 @@
 #define g_screenWidthX 1000
 #define g_screenBreadthY 1000
 
+//Global variable
+ static int gameTurn = 0;
+
 class Game
 {
 public:

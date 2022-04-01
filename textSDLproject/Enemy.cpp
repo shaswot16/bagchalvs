@@ -5,6 +5,11 @@
 #include "Board.h"
 #include<iostream>
 #include "PlayState.h"
+#include "Game.h"
+
+
+//extern int gameTurn;
+
 Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {
 	
 }
@@ -29,8 +34,7 @@ void Enemy::handleInput() {
 
 	m_position.setX(x);
 	m_position.setY(y);
-	return;
-	return;
+	gameTurn++;
 }
 
 
