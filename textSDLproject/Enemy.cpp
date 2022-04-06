@@ -34,7 +34,7 @@ void Enemy::handleInput() {
 
 	m_position.setX(x);
 	m_position.setY(y);
-	gameTurn++;
+	
 }
 
 

@@ -32,16 +32,16 @@ void PlayState::update()
 	dynamiccasting();
 	
 	int b = gameTurn % 2;
-	std::cout << "Game Turn" << gameTurn << std::endl;
+	std::cout << "Game Turn" << b << std::endl;
 
 	switch (b) {
 
 	case(0) :
-		std::cout << "Inside case o" << std::endl;
+		//std::cout << "Inside case 0" << std::endl;
 		turnGoat();
 		break;
 	case(1) :
-		std::cout << "Inside case 1" << std::endl;
+		//std::cout << "Inside case 1" << std::endl;
 
 		turnTiger();
 		break;
@@ -665,8 +665,9 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 
 		if (c == 200)
 		{
-			std::cout << "handle" << std::endl;
+			
 			tiger->handleInput();
+			gameTurn++;
 		}
 		else if (c == 400)
 		{
@@ -677,6 +678,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 			if (killer(midx, midy))
 			{
 				tiger->handleInput();
+				gameTurn++;
 			}
 			else std::cout << "Invalid move" << std::endl;
 		}
@@ -687,14 +689,14 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 		int b = abs(tiger->getPosition().getY() - y);
 		double e = sqrt(abs(pow(a, 2) + pow(b, 2)));
 		double d = 200 * sqrt(2);
-	    std::cout <<"value of e: "<< e << std::endl;
-		std::cout << "value of d: " << d << std::endl;
+	   
 
 
 		if (e == 200 || e==(double)200*sqrt(2) )
 		{
-			std::cout << "handle" << std::endl;
+			
 			tiger->handleInput();
+			gameTurn++;
 		}
 		else if (e == 400 || e==400*sqrt(2))
 		{
@@ -705,6 +707,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 			if (killer(midx, midy))
 			{
 				tiger->handleInput();
+				gameTurn++;
 			}
 			else std::cout << "Invalid move" << std::endl;
 
@@ -1015,25 +1018,38 @@ void PlayState::turnGoat() {
 
 	static int indexOfGoat = 4;
 	//bool rightPosition;
+	/*TheBoard::Instance()->setRX(5000);
+	TheBoard::Instance()->setRY(5000);*/
+
 	int mouspos_X = TheBoard::Instance()->getR_X();
 	int mouspos_Y = TheBoard::Instance()->getR_Y();
 
-	 static int correct = 0;
+	//std::cout << mouspos_X << std::endl;
+	//std::cout << mouspos_Y << std::endl;
 
-	for (int i = 0;i <= 23;i++) {
-		if (( m_SDLgameObjects[i]->getPosition().getX()) != mouspos_X && ( m_SDLgameObjects[i]->getPosition().getY()) != mouspos_Y) {
+    int correct = 0;
+	std::cout <<"no of game object"<< m_gameObjects.size() << std::endl;
+	for (int i = 0;i <m_gameObjects.size();i++) {
+		if ((( m_SDLgameObjects[i]->getPosition().getX()) != mouspos_X) && (( m_SDLgameObjects[i]->getPosition().getY()) != mouspos_Y)) {
 			correct++;
+			std::cout << correct << std::endl;
 
+			continue;
+			
 		}
 	}
+	
 
-	if (correct == 23) {
+	if (correct == 21) {
+		
 		m_SDLgameObjects[indexOfGoat]->getPosition().setX(mouspos_X);
 		m_SDLgameObjects[indexOfGoat]->getPosition().setY(mouspos_Y);
-
+		
 		indexOfGoat++;
 		correct = 0;
+		
 		gameTurn++;
+		
 
 
 
