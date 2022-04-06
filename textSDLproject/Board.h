@@ -14,6 +14,7 @@ public:
 	}
 	void createBoard();
 	void coordinate();
+
 	void filtercoordinate();
 	//R_X
 	int getR_X() { return R_X; }

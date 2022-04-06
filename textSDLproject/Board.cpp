@@ -34,6 +34,7 @@ void Board::coordinate() {
 }
 void Board::filtercoordinate()
 {
+
 	if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
 	{
 		if (TheInputHandler::Instance()->m_mousePosition->getX() >= (0) &&
