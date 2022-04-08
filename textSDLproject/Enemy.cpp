@@ -29,12 +29,30 @@ void Enemy::update()
 
 void Enemy::handleInput() {
 
-	int x = TheBoard::Instance()->getR_X();
-	int y = TheBoard::Instance()->getR_Y();
+	Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
+
+	int x = TheBoard::Instance()->filterX(pMousePos->getX());
+	int y= TheBoard::Instance()->filterY(pMousePos->getY());
+
+	
 
 	m_position.setX(x);
 	m_position.setY(y);
 	
+}
+int* Enemy::handle() {
+	int  r[2];
+	Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
+
+	int x = TheBoard::Instance()->filterX(pMousePos->getX());
+	int y = TheBoard::Instance()->filterY(pMousePos->getY());
+	r[0] = x;
+	r[1] = y;
+
+	return r;
+
+
+
 }
 
 

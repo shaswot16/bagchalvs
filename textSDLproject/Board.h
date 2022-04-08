@@ -16,6 +16,8 @@ public:
 	void coordinate();
 
 	void filtercoordinate();
+	int filterX(int a);
+	int filterY(int a);
 	//R_X
 	int getR_X() { return R_X; }
 	int getR_Y() { return R_Y; };

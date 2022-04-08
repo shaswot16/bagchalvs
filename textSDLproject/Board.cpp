@@ -203,6 +203,65 @@ void Board::filtercoordinate()
 	
 
 }
+int Board::filterX(int a)
+{
+
+		if (a >= (0) &&
+			a <= (g_screenWidthX / 5))
+		{
+			return a = 0;
+		}
+		else if (a >= (g_screenWidthX / 5) &&
+			a <= (2 * g_screenWidthX / 5))
+		{
+			return a = (g_screenWidthX / 5);
+		}
+		else if (a >= (2 * g_screenWidthX / 5) &&
+			a <= (3 * g_screenWidthX / 5))
+		{
+			return a = (2 * g_screenWidthX / 5);
+		}
+		else if (a >= 3 * (g_screenWidthX / 5) &&
+			a <= (4 * g_screenWidthX / 5))
+		{
+			return a = (3 * (g_screenWidthX / 5));
+		}
+		else if (a >= (4 * g_screenWidthX / 5) &&
+			a <= (5 * g_screenWidthX / 5))
+		{
+			return a = (4 * g_screenWidthX / 5);
+		}
+
+}
+int Board::filterY(int a)
+{
+	if (a >= (0) &&
+		a <= (g_screenBreadthY / 5))
+	{
+		return a = 0;
+	}
+	else if (a >= (g_screenBreadthY / 5) &&
+		a <= (2 * g_screenBreadthY / 5))
+	{
+		return a = (g_screenBreadthY / 5);
+	}
+	else if (a >= (2 * g_screenBreadthY / 5) &&
+		a <= (3 * g_screenBreadthY / 5))
+	{
+		return a = (2 * g_screenBreadthY / 5);
+	}
+	else if (a >= 3 * (g_screenBreadthY / 5) &&
+		a <= (4 * g_screenBreadthY / 5))
+	{
+		return a = (3 * (g_screenBreadthY / 5));
+	}
+	else if (a >= (4 * g_screenBreadthY / 5) &&
+		a <= (5 * g_screenBreadthY / 5))
+	{
+		return a = (4 * g_screenBreadthY / 5);
+	}
+
+}
 void Board::render()
 {
 	TheBoard::Instance()->createBoard();

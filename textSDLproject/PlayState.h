@@ -29,7 +29,8 @@ public:
 	
 	void turnTiger();
 	void turnGoat();
-	
+	bool dontoverlap(int, int);
+	void goatWin();
 	void limitmoves(SDLGameObject*);
 
 	bool killer(int, int);
