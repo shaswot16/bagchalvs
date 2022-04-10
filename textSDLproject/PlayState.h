@@ -30,7 +30,8 @@ public:
 	void turnTiger();
 	void turnGoat();
 	bool dontoverlap(int, int);
-	void goatWin();
+	bool goatWin(int);
+	void goatWinWin();
 	void limitmoves(SDLGameObject*);
 
 	bool killer(int, int);

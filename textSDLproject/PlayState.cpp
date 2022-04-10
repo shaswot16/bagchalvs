@@ -457,8 +457,6 @@ void PlayState::turnTiger()
 
 void PlayState::turnGoat() {
 
-	
-	
 	int p=1050;
 	int q=950;
 
@@ -489,7 +487,7 @@ void PlayState::turnGoat() {
 		correct = 0;
 		gameTurn++;
 	}	
-	
+	goatWinWin();
 }
 
 bool PlayState :: dontoverlap(int a,int b)
@@ -504,15 +502,60 @@ bool PlayState :: dontoverlap(int a,int b)
 	return true;
 }
 
-void PlayState :: goatWin() {
+bool PlayState :: goatWin(int a)
+ { 
+	 int  right = 0;
+	 std::cout << a << std::endl;
+	
+	 int x = m_SDLgameObjects[a]->getPosition().getX();
+	 int y = m_SDLgameObjects[a]->getPosition().getY();
 
- int win=0;
 
-	for (int i = 0; i < 4; i++) {
-		int x_pos = (((int)abs(m_SDLgameObjects[i]->getPosition().getX())) / 200) % 2;
-		int y_pos = (((int)abs(m_SDLgameObjects[i]->getPosition().getY())) / 200) % 2;
+		 for (int i = 0; i < m_gameObjects.size(); i++) {
+
+			 if (
+				 (((x + 200) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) ||
+				 (((x + 400) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) 
 
 
+
+				 ) {
+
+				 right++;
+			 }
+			 if (
+				 (((y + 200) == m_SDLgameObjects[i]->getPosition().getY()) && (m_SDLgameObjects[i]->getPosition().getX() == a)) ||
+				 (((y + 400) == m_SDLgameObjects[i]->getPosition().getY()) && (m_SDLgameObjects[i]->getPosition().getX() == a))
+
+				 ) {
+
+				 right++;
+			 }
+			 if (
+				 ((x + 200) == m_SDLgameObjects[i]->getPosition().getX() && (y + 200) == m_SDLgameObjects[i]->getPosition().getY()) ||
+				 ((x + 400) == m_SDLgameObjects[i]->getPosition().getX() && (y + 400) == m_SDLgameObjects[i]->getPosition().getY())
+
+				 ) {
+
+				 right++;
+			 }
+		 }
+		 if (right == 6) {
+			 return true;
+		 }
+		 return false;
+		 
+	 
+ }
+void PlayState::goatWinWin()
+{
+	
+	if ( goatWin(0))
+	{
+		gameTurn = 0;
+
+		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
+		
 
 	}
 
