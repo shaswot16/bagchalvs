@@ -504,16 +504,17 @@ bool PlayState :: dontoverlap(int a,int b)
 
 bool PlayState :: goatWin(int a)
  { 
-	 int  right = 0;
+	   int  right = 0;
 	 std::cout << a << std::endl;
 	
 	 int x = m_SDLgameObjects[a]->getPosition().getX();
 	 int y = m_SDLgameObjects[a]->getPosition().getY();
 
 
-		 for (int i = 0; i < m_gameObjects.size(); i++) {
+		 for (int i = 0; i < m_gameObjects.size(); i++)
+		 {
 
-			 if (
+			/*if (
 				 (((x + 200) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) ||
 				 (((x + 400) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) 
 
@@ -538,19 +539,41 @@ bool PlayState :: goatWin(int a)
 				 ) {
 
 				 right++;
+			 }*/
+
+			 int x1 = m_SDLgameObjects[i]->getPosition().getX();
+			 int y1 = m_SDLgameObjects[i]->getPosition().getY();
+
+			 double xdistance = pow(abs(x1 - x), 2);
+			 double ydistance= pow(abs(y1 - y), 2);
+			 double distance = pow(xdistance+ydistance, 0.5);
+			 //std::cout << "distance of  " << m_SDLgameObjects[i]->getm_textureID()<<"is" << distance<<std::endl;
+
+			 if (distance == 200)
+			 {
+				 right++;
+			 }
+			 if (distance ==200*sqrt(2))
+			 {
+				 right++;
+			 }
+			 if (distance == 400)
+			 {
+				 right++;
+			 }
+			 if (distance == 400*sqrt(2))
+			 {
+				 right++;
 			 }
 		 }
 		 if (right == 6) {
 			 return true;
 		 }
-		 return false;
-		 
-	 
+		 return false; 
  }
 void PlayState::goatWinWin()
 {
-	
-	if ( goatWin(0))
+	if ( goatWin(0)&&goatWin(1)&&goatWin(2)&&goatWin(3))
 	{
 		gameTurn = 0;
 
@@ -558,7 +581,6 @@ void PlayState::goatWinWin()
 		
 
 	}
-
 }
 
 
