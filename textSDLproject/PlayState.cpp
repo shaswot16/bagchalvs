@@ -41,15 +41,18 @@ void PlayState::update()
 
 	case(0) :
 		//std::cout << "Inside case 0" << std::endl;
-		/*if (indexOfGoat > m_SDLgameObjects.size()) {
+		if (indexOfGoat >23) {
+			std::cout << "move goat" << std::endl;
 			turnMoveGoat();
 		}
-		else {*/
+		else {
+			std::cout << "turn goat" << std::endl;
 			turnGoat();
-		//}
+		}
 		break;
-	case(1) :
 		
+	case(1) :
+		std::cout << "move tiger" << std::endl;
 
 		turnTiger();
 		break;
@@ -531,7 +534,7 @@ bool PlayState :: dontoverlap(int a,int b)
 bool PlayState :: goatWin(int a)
  { 
 	   int  right = 0;
-	 std::cout << a << std::endl;
+	 
 	
 	 int c = m_SDLgameObjects[a]->getPosition().getX();
 	 int d = m_SDLgameObjects[a]->getPosition().getY();
@@ -542,32 +545,7 @@ bool PlayState :: goatWin(int a)
 		 for (int i = 0; i < m_gameObjects.size(); i++)
 		 {
 
-			/*if (
-				 (((x + 200) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) ||
-				 (((x + 400) == m_SDLgameObjects[i]->getPosition().getX()) && (m_SDLgameObjects[i]->getPosition().getY() == a)) 
-
-
-
-				 ) {
-
-				 right++;
-			 }
-			 if (
-				 (((y + 200) == m_SDLgameObjects[i]->getPosition().getY()) && (m_SDLgameObjects[i]->getPosition().getX() == a)) ||
-				 (((y + 400) == m_SDLgameObjects[i]->getPosition().getY()) && (m_SDLgameObjects[i]->getPosition().getX() == a))
-
-				 ) {
-
-				 right++;
-			 }
-			 if (
-				 ((x + 200) == m_SDLgameObjects[i]->getPosition().getX() && (y + 200) == m_SDLgameObjects[i]->getPosition().getY()) ||
-				 ((x + 400) == m_SDLgameObjects[i]->getPosition().getX() && (y + 400) == m_SDLgameObjects[i]->getPosition().getY())
-
-				 ) {
-
-				 right++;
-			 }*/
+			
 
 			 int x1 = m_SDLgameObjects[i]->getPosition().getX();
 			 int y1 = m_SDLgameObjects[i]->getPosition().getY();
@@ -577,8 +555,7 @@ bool PlayState :: goatWin(int a)
 			 double xdistance = pow(abs(x1 - c), 2);
 			 double ydistance= pow(abs(y1 - d), 2);
 			 double distance = pow(xdistance+ydistance, 0.5);
-			 //std::cout << "distance of  " << m_SDLgameObjects[i]->getm_textureID()<<"is" << distance<<std::endl;
-
+			 
 			 if (distance == 200)
 			 {
 				 right++;
@@ -655,8 +632,77 @@ void PlayState::turnMoveGoat() {
 			paloGoat = i+1;
 		}
 	}
+	switch (paloGoat)
+	{
+	case(5):
+		limitmoves(m_SDLgameObjects[4]);
+		break;
+	case(6):
+		limitmoves(m_SDLgameObjects[5]);
+		break;
+	case(7):
+		limitmoves(m_SDLgameObjects[6]);
+		break;
+	case(8):
+		limitmoves(m_SDLgameObjects[7]);
+		break;
+	case(9):
+		limitmoves(m_SDLgameObjects[8]);
+		break;
+	case(10):
+		limitmoves(m_SDLgameObjects[9]);
+		break;
+	case(11):
+		limitmoves(m_SDLgameObjects[10]);
+		break;
+	case(12):
+		limitmoves(m_SDLgameObjects[11]);
+		break;
+	case(13):
+		limitmoves(m_SDLgameObjects[12]);
+		break;
+	case(14):
+		limitmoves(m_SDLgameObjects[13]);
+		break;
+	case(15):
+		limitmoves(m_SDLgameObjects[14]);
+		break;
+	case(16):
+		limitmoves(m_SDLgameObjects[15]);
+		break;
+	case(17):
+		limitmoves(m_SDLgameObjects[16]);
+		break;
+	case(18):
+		limitmoves(m_SDLgameObjects[17]);
+		break;
+	case(19):
+		limitmoves(m_SDLgameObjects[18]);
+		break;
+	case(20):
+		limitmoves(m_SDLgameObjects[19]);
+		break;
+	case(21):
+		limitmoves(m_SDLgameObjects[20]);
+		break;
+	case(22):
+		limitmoves(m_SDLgameObjects[21]);
+		break;
+	case(23):
+		limitmoves(m_SDLgameObjects[22]);
+		break;
+	case(24):
+		limitmoves(m_SDLgameObjects[23]);
+	
+
+		break;
+		
+	default:
+		break;
+	}
 
 }
+
 
 
 	
