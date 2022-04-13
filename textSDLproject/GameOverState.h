@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-
+#include<SDL_mixer.h>>
 #include "GameState.h"
 
 class GameObject;
@@ -11,6 +11,8 @@ class GameObject;
 class GameOverState : public GameState
 {
 public:
+	Mix_Music* music;
+	Mix_Chunk* chunk;
 	virtual void update();
 	virtual void render();
 	virtual void handleState() {};

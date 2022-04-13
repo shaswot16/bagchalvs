@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include<SDL_mixer.h>
 #include "PlayState.h"
 #include "PauseState.h"
 #include "GameOverState.h"
@@ -40,10 +41,15 @@ void PlayState::update()
 
 	case(0) :
 		//std::cout << "Inside case 0" << std::endl;
-		turnGoat();
+		/*if (indexOfGoat > m_SDLgameObjects.size()) {
+			turnMoveGoat();
+		}
+		else {*/
+			turnGoat();
+		//}
 		break;
 	case(1) :
-		//std::cout << "Inside case 1" << std::endl;
+		
 
 		turnTiger();
 		break;
@@ -288,22 +294,30 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 
 		if (c == 200)
 		{
-			std::cout << "adjacent moment" << std::endl;
+			
 			if (dontoverlap(x, y))
 			{
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+				Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/test.WAV");
+				Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/test.WAV");
+				Mix_PlayMusic(gmusic, 0);
 				tiger->handleInput();
 				gameTurn++;
 			}
 		}
 		else if (c == 400)
 		{
-			std::cout << "straight killer moment" << std::endl;
+			
 			int midx = (x + tiger->getPosition().getX()) / 2;
 			int midy = (y + tiger->getPosition().getY()) / 2;
 
 			if (dontoverlap(x, y)) {
 				if (killer(midx, midy))
 				{
+					Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+					Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATKILL.WAV");
+					Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATKILL.WAV");
+					Mix_PlayMusic(gmusic, 0);
 					tiger->handleInput();
 					goatdead++;
 
@@ -323,20 +337,24 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 		int b = abs(tiger->getPosition().getY() - y);
 		double e = sqrt(abs(pow(a, 2) + pow(b, 2)));
 		double d = 200 * sqrt(2);
-		std::cout << "diagonal moment"<<std::endl;
+		
 
 
 		if (e == 200 || e==(double)200*sqrt(2) )
 		{
 			
 			if (dontoverlap(x,y)) {
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+				Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/test.WAV");
+				Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/test.WAV");
+				Mix_PlayMusic(gmusic, 0);
 				tiger->handleInput();
 				gameTurn++;
 			}
 		}
 		else if (e == 400 || e == 400 * sqrt(2))
 		{
-			std::cout << "diagonal killer moment" << std::endl;
+			
 			int midx = (x + tiger->getPosition().getX()) / 2;
 			int midy = (y + tiger->getPosition().getY()) / 2;
 
@@ -345,6 +363,10 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 			{
 				if (killer(midx, midy))
 				{
+					Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+					Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATKILL.WAV");
+					Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATKILL.WAV");
+					Mix_PlayMusic(gmusic, 0);
 					tiger->handleInput();
 					goatdead++;
 					if (goatdead == 5)
@@ -479,12 +501,16 @@ void PlayState::turnGoat() {
 	}
 
 	if (correct == m_gameObjects.size()) {
-		
+		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+		Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+		Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+		Mix_PlayMusic(gmusic, 0);
 		m_SDLgameObjects[indexOfGoat]->getPosition().setX(p);
 		m_SDLgameObjects[indexOfGoat]->getPosition().setY(q);
 		
 		indexOfGoat++;
 		correct = 0;
+
 		gameTurn++;
 	}	
 	goatWinWin();
@@ -507,8 +533,10 @@ bool PlayState :: goatWin(int a)
 	   int  right = 0;
 	 std::cout << a << std::endl;
 	
-	 int x = m_SDLgameObjects[a]->getPosition().getX();
-	 int y = m_SDLgameObjects[a]->getPosition().getY();
+	 int c = m_SDLgameObjects[a]->getPosition().getX();
+	 int d = m_SDLgameObjects[a]->getPosition().getY();
+	 int x = c / 200;
+	 int y = c / 200;
 
 
 		 for (int i = 0; i < m_gameObjects.size(); i++)
@@ -543,9 +571,11 @@ bool PlayState :: goatWin(int a)
 
 			 int x1 = m_SDLgameObjects[i]->getPosition().getX();
 			 int y1 = m_SDLgameObjects[i]->getPosition().getY();
+			 
 
-			 double xdistance = pow(abs(x1 - x), 2);
-			 double ydistance= pow(abs(y1 - y), 2);
+
+			 double xdistance = pow(abs(x1 - c), 2);
+			 double ydistance= pow(abs(y1 - d), 2);
 			 double distance = pow(xdistance+ydistance, 0.5);
 			 //std::cout << "distance of  " << m_SDLgameObjects[i]->getm_textureID()<<"is" << distance<<std::endl;
 
@@ -566,7 +596,35 @@ bool PlayState :: goatWin(int a)
 				 right++;
 			 }
 		 }
-		 if (right == 6) {
+		 if (x % 4 == 0 && y % 4 == 0) {
+			 if (right == 6) {
+				 return true;
+			 }
+		 }
+	     else if(x != 2 && y != 2) {
+			 if (x % 2 == 1 && y % 2==1) {
+				 if (right == 11) {
+					 return true;
+				 }
+			
+			 }
+			 else if (right == 5) {
+				 return true;
+			 }
+
+		 }
+		 else if (x % 2 == 0 && y % 2 == 0) {
+			 if (x == 2 && y == 2) {
+				 if (right == 16) {
+					 return true;
+				 }
+
+			 }
+			 else if (right == 10) {
+				 return true;
+			 }
+		 }
+		 else if (right == 7) {
 			 return true;
 		 }
 		 return false; 
@@ -583,6 +641,22 @@ void PlayState::goatWinWin()
 	}
 }
 
+void PlayState::turnMoveGoat() {
+	static int paloGoat = 25;
+	Vector2D* pMousePos2 = TheInputHandler::Instance()->getMousePosition();
+
+	int  mouspos_X, mouspos_Y;
+	//mouse position
+	mouspos_X = TheBoard::Instance()->getR_X();
+	mouspos_Y = TheBoard::Instance()->getR_Y();
+
+	for (int i = 4; i < sizeof(m_gameObjects); i++) {
+		if (mouspos_X == m_SDLgameObjects[i]->getPosition().getX() && mouspos_Y == m_SDLgameObjects[i]->getPosition().getY()) {
+			paloGoat = i+1;
+		}
+	}
+
+}
 
 
 	

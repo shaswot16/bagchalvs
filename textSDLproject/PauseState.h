@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "MenuButton.h"
-
+#include <SDL_mixer.h>
 
 class PauseState : public GameState
 {
@@ -18,6 +18,8 @@ public:
 	virtual bool onExit();
 	virtual void handleState() {};
 	virtual std::string getStateID() const { return s_pauseID; }
+	Mix_Music* music;
+	Mix_Chunk* chunk;
 
 	static void s_pauseToMain();
 	static void s_resumePlay();

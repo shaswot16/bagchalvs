@@ -29,6 +29,7 @@ public:
 	
 	void turnTiger();
 	void turnGoat();
+	void turnMoveGoat();
 	bool dontoverlap(int, int);
 	bool goatWin(int);
 	void goatWinWin();

@@ -41,7 +41,12 @@ bool MenuState::onEnter()
 	{
 		return false;
 	}
+	//CODE FOR PLAYING MUSIC IN MENUSTATE
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/INTROSOUND.mp3");
 
+	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/INTROSOUND.mp3");
+	Mix_PlayMusic(music, -1);
 	GameObject* titleText = new AnimatedGraphic(new LoaderParams(100, 100, 458, 174, "titletext"), 1);
 	GameObject* button1 = new MenuButton(new LoaderParams(100, 500, 247, 100, "playbutton"), s_menuToPlay);
 	GameObject* button2 = new MenuButton(new LoaderParams(100, 600, 247, 100, "exitbutton"), s_exitFromMenu);
@@ -62,13 +67,19 @@ bool MenuState::onExit()
 	m_gameObjects.clear();
 	TheTextureManager::Instance()->clearFromTextureMap("playbutton");
 	TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
-	
+	//CODE FOR STOPPPING TO PLAY MUSIC
+	Mix_FreeMusic(music);
+	Mix_FreeChunk(chunk);
 	std::cout << "exiting MenuState\n";
 	return true;
 }
 
 void MenuState::s_menuToPlay()
 { 
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/BUTTONCLICK.mp3");
+	Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/BUTTONCLICK.mp3");
+	Mix_PlayMusic(gmusic, 0);
 	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }
 void MenuState::s_exitFromMenu()

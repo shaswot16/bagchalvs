@@ -2,7 +2,7 @@
 #define __MenuState__
 
 #include <vector>
-
+#include<SDL_mixer.h>
 #include "GameState.h"
 #include "GameObject.h"
 
@@ -13,7 +13,8 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual void handleState() {};
-
+	Mix_Music* music;//FOR ADDING MUSIC IN MENUSTATE
+	Mix_Chunk* chunk;//FOR SOUND EFFECTS
 	virtual bool onEnter();  
 	virtual bool onExit();
 
