@@ -49,9 +49,9 @@ bool PauseState::onEnter()
 
 
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
-	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/INTROSOUND.mp3");
+	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/SHER.mp3");
 
-	chunk = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/INTROSOUND.mp3");
+	chunk = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/SHER.mp3");
 	Mix_PlayMusic(music, -1);
 	GameObject* button1 = new MenuButton(new LoaderParams(200, 100, 228, 80, "mainbutton"), s_pauseToMain);
 	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 228, 80, "resumebutton"), s_resumePlay);

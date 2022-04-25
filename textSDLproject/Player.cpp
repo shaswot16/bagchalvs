@@ -29,12 +29,15 @@ void Player::handleInput()
 {
 	
 	
-	int x = TheBoard::Instance()->getR_X();
-	int y = TheBoard::Instance()->getR_Y();
+	Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
+
+	int x = TheBoard::Instance()->filterX(pMousePos->getX());
+	int y = TheBoard::Instance()->filterY(pMousePos->getY());
+
+
 
 	m_position.setX(x);
 	m_position.setY(y);
-	return;
 }
 
 void Player::clean() {}

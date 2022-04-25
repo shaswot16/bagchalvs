@@ -11,6 +11,8 @@
 
 static int goatdead;
 static int indexOfGoat = 4;
+static int numberOfGoat = 23;
+
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -19,7 +21,7 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-	
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
 		TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -40,7 +42,9 @@ void PlayState::update()
 	switch (b) {
 
 	case(0) :
-		//std::cout << "Inside case 0" << std::endl;
+		std::cout << indexOfGoat << std::endl;
+		
+
 		if (indexOfGoat >23) {
 			std::cout << "move goat" << std::endl;
 			turnMoveGoat();
@@ -248,8 +252,46 @@ bool PlayState::onEnter()
 
 void PlayState::render()
 {
+	
 
 	TheBoard::Instance()->render();
+
+	TheTextureManager::Instance()->load("assets/GoatLOGO.png", "goatlogo", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->draw("goatlogo", 900, 100, 150, 50, TheGame::Instance()->getRenderer());
+
+	TheTextureManager::Instance()->load("assets/1to20.jpg", "1to20", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/deadLogo.jpg", "dead", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/0to5.jpg", "0to5", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/goatTurn.jpg", "gturn", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/tigerTurn.jpg", "tturn", TheGame::Instance()->getRenderer());
+
+
+	
+
+
+	if (a > 4 && b>4) {
+		TheTextureManager::Instance()->drawFrame("1to20", 900, 300, 200, 200, 4, 4, TheGame::Instance()->getRenderer());
+	}
+	else {
+		TheTextureManager::Instance()->drawFrame("1to20", 900, 300, 200, 200, a, b, TheGame::Instance()->getRenderer());
+	}
+	
+	TheTextureManager::Instance()->draw("dead", 900, 600, 200, 200, TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->drawFrame("1to20", 900, 800, 200, 200, 1, goatdead, TheGame::Instance()->getRenderer());
+
+	int b = gameTurn % 2;
+	if (b == 0) {
+		TheTextureManager::Instance()->draw("gturn", 00, 900, 200, 200, TheGame::Instance()->getRenderer());
+
+	}
+	else {
+		TheTextureManager::Instance()->draw("tturn", 00, 900, 200, 200, TheGame::Instance()->getRenderer());
+
+	}
+
+
+
+
 
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
@@ -404,6 +446,9 @@ bool PlayState::killer(int midx,int midy)
 			TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 
 			m_SDLgameObjects.erase(m_SDLgameObjects.begin() + i);
+			numberOfGoat -= 1;
+
+			//indexOfGoat++;
 
 			return true;
 		}
@@ -512,6 +557,14 @@ void PlayState::turnGoat() {
 		m_SDLgameObjects[indexOfGoat]->getPosition().setY(q);
 		
 		indexOfGoat++;
+		if (b == 4) {
+			a++;
+			b = 0;
+		}
+		else {
+			b++;
+		}
+		
 		correct = 0;
 
 		gameTurn++;
@@ -635,64 +688,64 @@ void PlayState::turnMoveGoat() {
 	switch (paloGoat)
 	{
 	case(5):
-		limitmoves(m_SDLgameObjects[4]);
+		limitmovesGoat(m_SDLgameObjects[4]);
 		break;
 	case(6):
-		limitmoves(m_SDLgameObjects[5]);
+		limitmovesGoat(m_SDLgameObjects[5]);
 		break;
 	case(7):
-		limitmoves(m_SDLgameObjects[6]);
+		limitmovesGoat(m_SDLgameObjects[6]);
 		break;
 	case(8):
-		limitmoves(m_SDLgameObjects[7]);
+		limitmovesGoat(m_SDLgameObjects[7]);
 		break;
 	case(9):
-		limitmoves(m_SDLgameObjects[8]);
+		limitmovesGoat(m_SDLgameObjects[8]);
 		break;
 	case(10):
-		limitmoves(m_SDLgameObjects[9]);
+		limitmovesGoat(m_SDLgameObjects[9]);
 		break;
 	case(11):
-		limitmoves(m_SDLgameObjects[10]);
+		limitmovesGoat(m_SDLgameObjects[10]);
 		break;
 	case(12):
-		limitmoves(m_SDLgameObjects[11]);
+		limitmovesGoat(m_SDLgameObjects[11]);
 		break;
 	case(13):
-		limitmoves(m_SDLgameObjects[12]);
+		limitmovesGoat(m_SDLgameObjects[12]);
 		break;
 	case(14):
-		limitmoves(m_SDLgameObjects[13]);
+		limitmovesGoat(m_SDLgameObjects[13]);
 		break;
 	case(15):
-		limitmoves(m_SDLgameObjects[14]);
+		limitmovesGoat(m_SDLgameObjects[14]);
 		break;
 	case(16):
-		limitmoves(m_SDLgameObjects[15]);
+		limitmovesGoat(m_SDLgameObjects[15]);
 		break;
 	case(17):
-		limitmoves(m_SDLgameObjects[16]);
+		limitmovesGoat(m_SDLgameObjects[16]);
 		break;
 	case(18):
-		limitmoves(m_SDLgameObjects[17]);
+		limitmovesGoat(m_SDLgameObjects[17]);
 		break;
 	case(19):
-		limitmoves(m_SDLgameObjects[18]);
+		limitmovesGoat(m_SDLgameObjects[18]);
 		break;
 	case(20):
-		limitmoves(m_SDLgameObjects[19]);
+		limitmovesGoat(m_SDLgameObjects[19]);
 		break;
 	case(21):
-		limitmoves(m_SDLgameObjects[20]);
+		limitmovesGoat(m_SDLgameObjects[20]);
 		break;
 	case(22):
-		limitmoves(m_SDLgameObjects[21]);
+		limitmovesGoat(m_SDLgameObjects[21]);
 		break;
 	case(23):
-		limitmoves(m_SDLgameObjects[22]);
+		limitmovesGoat(m_SDLgameObjects[22]);
 		break;
 	case(24):
-		limitmoves(m_SDLgameObjects[23]);
+		limitmovesGoat(m_SDLgameObjects[23]);
 	
 
 		break;
@@ -703,6 +756,59 @@ void PlayState::turnMoveGoat() {
 
 }
 
+void PlayState::limitmovesGoat(SDLGameObject* goat) {
+	int x = TheBoard::Instance()->getR_X();
+	int y = TheBoard::Instance()->getR_Y();
+
+	int x_pos = (((int)abs(goat->getPosition().getX())) / 200) % 2;
+	int y_pos = (((int)abs(goat->getPosition().getY())) / 200) % 2;
+
+	if ((x_pos == 1 && y_pos == 0) || (x_pos == 0 && y_pos == 1))  //Either of the condition must be satisfied to move diagonally
+	{
+		int a = abs(goat->getPosition().getX() - x);
+		int b = abs(goat->getPosition().getY() - y);
+		float c = (float)sqrt(abs(pow(a, 2) + pow(b, 2)));
+
+		if (c == 200)
+		{
+
+			if (dontoverlap(x, y))
+			{
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+				Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+				Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+				Mix_PlayMusic(gmusic, 0);
+				goat->handleInput();
+				goatWinWin();
+				gameTurn++;
+			}
+		}
+	}
+	else {
+		int a = abs(goat->getPosition().getX() - x);
+		int b = abs(goat->getPosition().getY() - y);
+		double e = sqrt(abs(pow(a, 2) + pow(b, 2)));
+		double d = 200 * sqrt(2);
+
+
+
+		if (e == 200 || e == (double)200 * sqrt(2))
+		{
+
+			if (dontoverlap(x, y)) {
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
+				Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+				Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
+				Mix_PlayMusic(gmusic, 0);
+				goat->handleInput();
+				goatWinWin();
+				gameTurn++;
+
+			}
+		}
+	}
+
+}
 
 
 	
