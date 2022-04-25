@@ -11,7 +11,7 @@
 
 static int goatdead;
 static int indexOfGoat = 4;
-static int numberOfGoat = 23;
+static int numberOfGoat = 24;
 
 
 const std::string PlayState::s_playID = "PLAY";
@@ -435,7 +435,7 @@ bool PlayState::killer(int midx,int midy)
 	int a;
 	int b;
 	
-	for (int i = 4;i <= 23; i++) {
+	for (int i = 4;i < numberOfGoat; i++) {
 		std::cout << "inside killer"<<std::endl;
 		a = m_SDLgameObjects[i]->getPosition().getX();
 		b = m_SDLgameObjects[i]->getPosition().getY();
@@ -540,7 +540,7 @@ void PlayState::turnGoat() {
 	}
     int correct = 0;
 	
-	for (int i = 0;i <m_gameObjects.size();i++) {
+	for (int i = 0;i <numberOfGoat;i++) {
 
 		if ( (m_SDLgameObjects[i]->getPosition().getX() != p) || (m_SDLgameObjects[i]->getPosition().getY() != q) ) {
 			correct++;
@@ -548,7 +548,7 @@ void PlayState::turnGoat() {
 		}
 	}
 
-	if (correct == m_gameObjects.size()) {
+	if (correct == numberOfGoat) {
 		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
 		Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
 		Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
@@ -574,7 +574,7 @@ void PlayState::turnGoat() {
 
 bool PlayState :: dontoverlap(int a,int b)
 {
-	for (int i = 0; i < m_gameObjects.size(); i++)
+	for (int i = 0; i < numberOfGoat; i++)
 	{
 
 		if ((m_SDLgameObjects[i]->getPosition().getX() == a) && (m_SDLgameObjects[i]->getPosition().getY() == b)) {
@@ -595,7 +595,7 @@ bool PlayState :: goatWin(int a)
 	 int y = c / 200;
 
 
-		 for (int i = 0; i < m_gameObjects.size(); i++)
+		 for (int i = 0; i < numberOfGoat; i++)
 		 {
 
 			
@@ -680,7 +680,7 @@ void PlayState::turnMoveGoat() {
 	mouspos_X = TheBoard::Instance()->getR_X();
 	mouspos_Y = TheBoard::Instance()->getR_Y();
 
-	for (int i = 4; i < sizeof(m_gameObjects); i++) {
+	for (int i = 4; i < numberOfGoat; i++) {
 		if (mouspos_X == m_SDLgameObjects[i]->getPosition().getX() && mouspos_Y == m_SDLgameObjects[i]->getPosition().getY()) {
 			paloGoat = i+1;
 		}
@@ -746,10 +746,7 @@ void PlayState::turnMoveGoat() {
 		break;
 	case(24):
 		limitmovesGoat(m_SDLgameObjects[23]);
-	
-
 		break;
-		
 	default:
 		break;
 	}
