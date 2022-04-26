@@ -48,8 +48,8 @@ bool MenuState::onEnter()
 	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/SHER.mp3");
 	Mix_PlayMusic(music, -1);
 	GameObject* titleText = new AnimatedGraphic(new LoaderParams(00, 00, 1200,1200 , "titletext"), 1);
-	GameObject* button1 = new MenuButton(new LoaderParams(100, 500, 247, 100, "playbutton"), s_menuToPlay);
-	GameObject* button2 = new MenuButton(new LoaderParams(100, 600, 247, 100, "exitbutton"), s_exitFromMenu);
+	GameObject* button1 = new MenuButton(new LoaderParams(680, 451, 247, 100, "playbutton"), s_menuToPlay);
+	GameObject* button2 = new MenuButton(new LoaderParams(680, 600, 247, 100, "exitbutton"), s_exitFromMenu);
 	m_gameObjects.push_back(titleText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);

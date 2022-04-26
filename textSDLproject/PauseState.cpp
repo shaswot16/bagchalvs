@@ -1,5 +1,6 @@
 #include "PauseState.h"
 #include "iostream"
+#include "AnimatedGraphic.h"
 
 const std::string PauseState::s_pauseID = "PAUSE";
 
@@ -46,6 +47,10 @@ bool PauseState::onEnter()
 	{
 		return false;
 	}
+	if (!TheTextureManager::Instance()->load("assets/title1.png", "titletext", TheGame::Instance()->getRenderer()))
+	{
+		return false;
+	}
 
 
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
@@ -53,8 +58,11 @@ bool PauseState::onEnter()
 
 	chunk = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/SHER.mp3");
 	Mix_PlayMusic(music, -1);
-	GameObject* button1 = new MenuButton(new LoaderParams(200, 100, 228, 80, "mainbutton"), s_pauseToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 228, 80, "resumebutton"), s_resumePlay);
+	
+	GameObject* titleText = new AnimatedGraphic(new LoaderParams(00, 00, 1200, 1200, "titletext"), 1);
+	GameObject* button1 = new MenuButton(new LoaderParams(200, 300, 247, 100, "mainbutton"), s_pauseToMain);
+	GameObject* button2 = new MenuButton(new LoaderParams(200, 400, 247, 100, "resumebutton"), s_resumePlay);
+	m_gameObjects.push_back(titleText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
 	std::cout << "entering PauseState\n";

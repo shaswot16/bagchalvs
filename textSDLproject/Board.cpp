@@ -15,15 +15,10 @@ Board* TheBoard::s_pInstance = 0;
 
 void Board::createBoard() {
 
-	TextureManager::Instance()->draw("board", 50, 50, 800, 800, TheGame::Instance()->getRenderer());
+	TextureManager::Instance()->draw("board", 0, 0, 1200, 1200, TheGame::Instance()->getRenderer());
 
 
-	for (int x = 0;x <= 800;x += 200) {
-		for (int y = 0;y <= 800;y += 200) {
-			TextureManager::Instance()->draw("point", x, y, 100, 100, TheGame::Instance()->getRenderer());
-		}
-	}
-
+	
 
 	
 

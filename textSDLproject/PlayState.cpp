@@ -21,7 +21,7 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+	
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
 		TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -42,22 +42,16 @@ void PlayState::update()
 	switch (b) {
 
 	case(0) :
-		std::cout << indexOfGoat << std::endl;
-		
-
+		//std::cout << indexOfGoat << std::endl;
 		if (indexOfGoat >23) {
-			std::cout << "move goat" << std::endl;
 			turnMoveGoat();
 		}
 		else {
-			std::cout << "turn goat" << std::endl;
 			turnGoat();
 		}
 		break;
 		
 	case(1) :
-		std::cout << "move tiger" << std::endl;
-
 		turnTiger();
 		break;
 	default:
@@ -183,32 +177,31 @@ bool PlayState::onEnter()
 	{
 		return false;
 	}
-	if (!TextureManager::Instance()->load("assets/pointMain.png", "point", TheGame::Instance()->getRenderer()))
-	{
-		return false;
-	}
 	
+	int goatXPos = 1250;
+	int goatYPos = 950;
+
 	
-	GameObject* player1 = new Player(new LoaderParams(1050, 950, 128, 128, "goat1"));
-	GameObject* player2 = new Player(new LoaderParams(1050, 950, 128, 128, "goat2"));
-	GameObject* player3 = new Player(new LoaderParams(1050, 950, 128, 128, "goat2"));
-	GameObject* player4 = new Player(new LoaderParams(1050, 950, 128, 128, "goat4"));
-	GameObject* player5 = new Player(new LoaderParams(1050, 950, 128, 128, "goat5"));
-	GameObject* player6 = new Player(new LoaderParams(1050, 950, 128, 128, "goat6"));
-	GameObject* player7 = new Player(new LoaderParams(1050, 950, 128, 128, "goat7"));
-	GameObject* player8 = new Player(new LoaderParams(1050, 950, 128, 128, "goat8"));
-	GameObject* player9 = new Player(new LoaderParams(1050, 950, 128, 128, "goat9"));
-	GameObject* player10 = new Player(new LoaderParams(1050, 950, 128, 128, "goat10"));
-	GameObject* player11 = new Player(new LoaderParams(1050, 950, 128, 128, "goat11"));
-	GameObject* player12 = new Player(new LoaderParams(1050, 950, 128, 128, "goat12"));
-	GameObject* player13 = new Player(new LoaderParams(1050, 950, 128, 128, "goat13"));
-	GameObject* player14 = new Player(new LoaderParams(1050, 950, 128, 128, "goat14"));
-	GameObject* player15 = new Player(new LoaderParams(1050, 950, 128, 128, "goat15"));
-	GameObject* player16 = new Player(new LoaderParams(1050, 950, 128, 128, "goat16"));
-	GameObject* player17 = new Player(new LoaderParams(1050, 950, 128, 128, "goat17"));
-	GameObject* player18 = new Player(new LoaderParams(1050, 950, 128, 128, "goat18"));
-	GameObject* player19 = new Player(new LoaderParams(1050, 950, 128, 128, "goat19"));
-	GameObject* player20 = new Player(new LoaderParams(1050, 950, 128, 128, "goat20"));
+	GameObject* player1 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat1"));
+	GameObject* player2 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat2"));
+	GameObject* player3 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat3"));
+	GameObject* player4 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat4"));
+	GameObject* player5 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat5"));
+	GameObject* player6 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat6"));
+	GameObject* player7 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat7"));
+	GameObject* player8 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat8"));
+	GameObject* player9 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat9"));
+	GameObject* player10 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat10"));
+	GameObject* player11 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat11"));
+	GameObject* player12 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat12"));
+	GameObject* player13 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat13"));
+	GameObject* player14 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat14"));
+	GameObject* player15 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat15"));
+	GameObject* player16 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat16"));
+	GameObject* player17 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat17"));
+	GameObject* player18 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat18"));
+	GameObject* player19 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat19"));
+	GameObject* player20 = new Player(new LoaderParams(goatXPos, goatYPos, 128, 128, "goat20"));
 
 
 	GameObject* enemy1 = new Enemy(new LoaderParams(0, 0, 128, 128, "tiger1"));
@@ -256,36 +249,40 @@ void PlayState::render()
 
 	TheBoard::Instance()->render();
 
-	TheTextureManager::Instance()->load("assets/GoatLOGO.png", "goatlogo", TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->draw("goatlogo", 900, 100, 150, 50, TheGame::Instance()->getRenderer());
-
-	TheTextureManager::Instance()->load("assets/1to20.jpg", "1to20", TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->load("assets/deadLogo.jpg", "dead", TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->load("assets/0to5.jpg", "0to5", TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->load("assets/goatTurn.jpg", "gturn", TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->load("assets/tigerTurn.jpg", "tturn", TheGame::Instance()->getRenderer());
-
-
 	
+	TheTextureManager::Instance()->load("assets/1to20.png", "1to20", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/0.png", "0", TheGame::Instance()->getRenderer());
 
+	TheTextureManager::Instance()->load("assets/0to5.jpg", "0to5", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/GoatLogo.png", "gturn", TheGame::Instance()->getRenderer());
+	TheTextureManager::Instance()->load("assets/TigerLogo.png", "tturn", TheGame::Instance()->getRenderer());
+	
 
 	if (a > 4 && b>4) {
-		TheTextureManager::Instance()->drawFrame("1to20", 900, 300, 200, 200, 4, 4, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->drawFrame("1to20", 969, 268, 75, 75, 4, 4, TheGame::Instance()->getRenderer());
+	}
+	else if (a == 0 && b == 0) {
+		TheTextureManager::Instance()->draw("0", 990, 268, 50, 50,  TheGame::Instance()->getRenderer());
+
+	}
+	else  {
+		TheTextureManager::Instance()->drawFrame("1to20", 969, 268, 75, 75, a, b, TheGame::Instance()->getRenderer());
+	}
+
+	if (goatdead==0) {
+		TheTextureManager::Instance()->draw("0", 990, 635, 50, 50, TheGame::Instance()->getRenderer());
+
 	}
 	else {
-		TheTextureManager::Instance()->drawFrame("1to20", 900, 300, 200, 200, a, b, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->drawFrame("1to20", 990, 635, 75, 75, 1, goatdead - 1, TheGame::Instance()->getRenderer());
 	}
-	
-	TheTextureManager::Instance()->draw("dead", 900, 600, 200, 200, TheGame::Instance()->getRenderer());
-	TheTextureManager::Instance()->drawFrame("1to20", 900, 800, 200, 200, 1, goatdead, TheGame::Instance()->getRenderer());
-
 	int b = gameTurn % 2;
 	if (b == 0) {
-		TheTextureManager::Instance()->draw("gturn", 00, 900, 200, 200, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->draw("gturn", 990, 885, 100, 50, TheGame::Instance()->getRenderer());
 
 	}
 	else {
-		TheTextureManager::Instance()->draw("tturn", 00, 900, 200, 200, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->draw("tturn", 990, 885, 100, 50, TheGame::Instance()->getRenderer());
 
 	}
 
@@ -303,13 +300,10 @@ void PlayState::render()
 
 bool PlayState::onExit()
 {
-	//enemy1->clean();
 	for (int i = 0;i < m_SDLgameObjects.size();i++)
 	{
 		TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 	}
-
-	
 	std::cout << "exiting PlayState\n";
 	return true;
 }
@@ -330,7 +324,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 	int y_pos = (((int)abs(tiger->getPosition().getY())) / 200) % 2;
 
 
-	
+
 	if ((x_pos == 1 && y_pos == 0) || (x_pos == 0 && y_pos == 1))  //Either of the condition must be satisfied to move diagonally
 	{
 		int a = abs(tiger->getPosition().getX() - x);
@@ -339,7 +333,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 
 		if (c == 200)
 		{
-			
+
 			if (dontoverlap(x, y))
 			{
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
@@ -352,7 +346,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 		}
 		else if (c == 400)
 		{
-			
+
 			int midx = (x + tiger->getPosition().getX()) / 2;
 			int midy = (y + tiger->getPosition().getY()) / 2;
 
@@ -377,18 +371,19 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 			else std::cout << "Invalid move" << std::endl;
 
 		}
-	}else {
+	}
+	else {
 		int a = abs(tiger->getPosition().getX() - x);
 		int b = abs(tiger->getPosition().getY() - y);
 		double e = sqrt(abs(pow(a, 2) + pow(b, 2)));
 		double d = 200 * sqrt(2);
-		
 
 
-		if (e == 200 || e==(double)200*sqrt(2) )
+
+		if (e == 200 || e == (double)200 * sqrt(2))
 		{
-			
-			if (dontoverlap(x,y)) {
+
+			if (dontoverlap(x, y)) {
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
 				Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/test.WAV");
 				Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/test.WAV");
@@ -399,7 +394,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 		}
 		else if (e == 400 || e == 400 * sqrt(2))
 		{
-			
+
 			int midx = (x + tiger->getPosition().getX()) / 2;
 			int midy = (y + tiger->getPosition().getY()) / 2;
 
@@ -423,7 +418,7 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 				}
 			}
 		}
-			else std::cout << "Invalid move" << std::endl;
+		else std::cout << "Invalid move" << std::endl;
 
 	}
 }
@@ -436,20 +431,20 @@ bool PlayState::killer(int midx,int midy)
 	int b;
 	
 	for (int i = 4;i < numberOfGoat; i++) {
-		std::cout << "inside killer"<<std::endl;
+		
 		a = m_SDLgameObjects[i]->getPosition().getX();
 		b = m_SDLgameObjects[i]->getPosition().getY();
 
 		if (a == midx && b == midy)
 		{
+			std::cout << "inside killer" << i << std::endl;
+			
 			std::cout << "inside midpoint" << std::endl;
+			std::cout << m_SDLgameObjects[i]->getm_textureID() << std::endl;
 			TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 
 			m_SDLgameObjects.erase(m_SDLgameObjects.begin() + i);
 			numberOfGoat -= 1;
-
-			//indexOfGoat++;
-
 			return true;
 		}
 	}
@@ -527,7 +522,7 @@ void PlayState::turnTiger()
 
 void PlayState::turnGoat() {
 
-	int p=1050;
+	int p=1250;
 	int q=950;
 
 	if (TheInputHandler::Instance()->getMouseButtonState(RIGHT))
@@ -561,9 +556,13 @@ void PlayState::turnGoat() {
 			a++;
 			b = 0;
 		}
+		else  if (a == 0) {
+			a++;
+		}
 		else {
 			b++;
 		}
+		
 		
 		correct = 0;
 
