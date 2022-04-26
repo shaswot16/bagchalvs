@@ -15,6 +15,7 @@ void MenuState::update()
 	{
 		m_gameObjects[i]->update();
 	}
+	
 } 
 
 
@@ -65,12 +66,17 @@ bool MenuState::onExit()
 		m_gameObjects[i]-> clean();
 	}
 	m_gameObjects.clear();
+	
 	TheTextureManager::Instance()->clearFromTextureMap("playbutton");
 	TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+	TheTextureManager::Instance()->clearFromTextureMap("titletext");
+
+
 	//CODE FOR STOPPPING TO PLAY MUSIC
 	Mix_FreeMusic(music);
 	Mix_FreeChunk(chunk);
 	std::cout << "exiting MenuState\n";
+	
 	return true;
 }
 

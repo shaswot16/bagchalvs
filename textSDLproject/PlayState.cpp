@@ -16,7 +16,7 @@ static int numberOfGoat = 24;
 
 const std::string PlayState::s_playID = "PLAY";
 
-//extern int gameTurn;
+
 
 
 void PlayState::update()
@@ -42,7 +42,7 @@ void PlayState::update()
 	switch (b) {
 
 	case(0) :
-		//std::cout << indexOfGoat << std::endl;
+		
 		if (indexOfGoat >23) {
 			turnMoveGoat();
 		}
@@ -304,7 +304,7 @@ bool PlayState::onExit()
 	{
 		TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 	}
-	std::cout << "exiting PlayState\n";
+	
 	return true;
 }
 
@@ -437,9 +437,7 @@ bool PlayState::killer(int midx,int midy)
 
 		if (a == midx && b == midy)
 		{
-			std::cout << "inside killer" << i << std::endl;
 			
-			std::cout << "inside midpoint" << std::endl;
 			std::cout << m_SDLgameObjects[i]->getm_textureID() << std::endl;
 			TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 
@@ -548,8 +546,9 @@ void PlayState::turnGoat() {
 		Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
 		Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
 		Mix_PlayMusic(gmusic, 0);
-		m_SDLgameObjects[indexOfGoat]->getPosition().setX(p);
-		m_SDLgameObjects[indexOfGoat]->getPosition().setY(q);
+		m_SDLgameObjects[indexOfGoat-goatdead]->getPosition().setX(p);
+		m_SDLgameObjects[indexOfGoat-goatdead]->getPosition().setY(q);
+
 		
 		indexOfGoat++;
 		if (b == 4) {
