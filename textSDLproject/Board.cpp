@@ -15,7 +15,7 @@ Board* TheBoard::s_pInstance = 0;
 
 void Board::createBoard() {
 
-	TextureManager::Instance()->draw("board", 0, 0, 1200, 1200, TheGame::Instance()->getRenderer());
+	TextureManager::Instance()->draw("board", 0, 0, 1200, 1000, TheGame::Instance()->getRenderer());
 
 
 	

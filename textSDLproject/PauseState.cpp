@@ -60,8 +60,8 @@ bool PauseState::onEnter()
 	Mix_PlayMusic(music, -1);
 	
 	GameObject* titleText = new AnimatedGraphic(new LoaderParams(00, 00, 1200, 1200, "titletext"), 1);
-	GameObject* button1 = new MenuButton(new LoaderParams(200, 300, 247, 100, "mainbutton"), s_pauseToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams(200, 400, 247, 100, "resumebutton"), s_resumePlay);
+	GameObject* button1 = new MenuButton(new LoaderParams(335, 275, 247, 100, "mainbutton"), s_pauseToMain);
+	GameObject* button2 = new MenuButton(new LoaderParams(335, 515, 247, 100, "resumebutton"), s_resumePlay);
 	m_gameObjects.push_back(titleText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);

@@ -88,8 +88,6 @@ bool PlayState::onEnter()
 	{
 		return false;
 	}
-
-
 	if (!TheTextureManager::Instance()->load("assets/goatMain.png", "goat1", TheGame::Instance()->getRenderer()))
 	{
 		return false;
@@ -170,9 +168,6 @@ bool PlayState::onEnter()
 	{
 		return false;
 	}
-
-
-
 	if (!TheTextureManager::Instance()->load("assets/board.png", "board", TheGame::Instance()->getRenderer()))
 	{
 		return false;
@@ -259,43 +254,35 @@ void PlayState::render()
 	
 
 	if (a > 4 && b>4) {
-		TheTextureManager::Instance()->drawFrame("1to20", 969, 268, 75, 75, 4, 4, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->drawFrame("1to20", 975, 250, 75, 75, 4, 4, TheGame::Instance()->getRenderer());
 	}
 	else if (a == 0 && b == 0) {
-		TheTextureManager::Instance()->draw("0", 990, 268, 50, 50,  TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->draw("0", 975, 250, 50, 50,  TheGame::Instance()->getRenderer());
 
 	}
 	else  {
-		TheTextureManager::Instance()->drawFrame("1to20", 969, 268, 75, 75, a, b, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->drawFrame("1to20", 975, 250, 75, 75, a, b, TheGame::Instance()->getRenderer());
 	}
 
 	if (goatdead==0) {
-		TheTextureManager::Instance()->draw("0", 990, 635, 50, 50, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->draw("0", 980, 490, 50, 50, TheGame::Instance()->getRenderer());
 
 	}
 	else {
-		TheTextureManager::Instance()->drawFrame("1to20", 990, 635, 75, 75, 1, goatdead - 1, TheGame::Instance()->getRenderer());
+		TheTextureManager::Instance()->drawFrame("1to20", 980, 490, 75, 75, 1, goatdead - 1, TheGame::Instance()->getRenderer());
 	}
+
 	int b = gameTurn % 2;
 	if (b == 0) {
-		TheTextureManager::Instance()->draw("gturn", 990, 885, 100, 50, TheGame::Instance()->getRenderer());
-
+		TheTextureManager::Instance()->draw("gturn", 990, 800, 100, 50, TheGame::Instance()->getRenderer());
 	}
 	else {
-		TheTextureManager::Instance()->draw("tturn", 990, 885, 100, 50, TheGame::Instance()->getRenderer());
-
+		TheTextureManager::Instance()->draw("tturn", 990, 800, 100, 50, TheGame::Instance()->getRenderer());
 	}
-
-
-
-
-
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
 		m_gameObjects[i]->draw();
 	}
-	
-
 }
 
 bool PlayState::onExit()
@@ -304,7 +291,6 @@ bool PlayState::onExit()
 	{
 		TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
 	}
-	
 	return true;
 }
 
@@ -315,15 +301,10 @@ void PlayState::handleState(){
 
 void PlayState::limitmoves(SDLGameObject* tiger)
 {
-
-
 	int x = TheBoard::Instance()->getR_X();
 	int y = TheBoard::Instance()->getR_Y();
-
 	int x_pos = (((int)abs(tiger->getPosition().getX())) / 200) % 2;
 	int y_pos = (((int)abs(tiger->getPosition().getY())) / 200) % 2;
-
-
 
 	if ((x_pos == 1 && y_pos == 0) || (x_pos == 0 && y_pos == 1))  //Either of the condition must be satisfied to move diagonally
 	{
@@ -333,7 +314,6 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 
 		if (c == 200)
 		{
-
 			if (dontoverlap(x, y))
 			{
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
@@ -346,7 +326,6 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 		}
 		else if (c == 400)
 		{
-
 			int midx = (x + tiger->getPosition().getX()) / 2;
 			int midy = (y + tiger->getPosition().getY()) / 2;
 
@@ -363,13 +342,12 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 					if (goatdead == 5)
 					{
 						indexOfGoat = 4;
+						std::cout << "inside goatdead 1st" << std::endl;
 						TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 					}
 					gameTurn++;
 				}
 			}
-			else std::cout << "Invalid move" << std::endl;
-
 		}
 	}
 	else {
@@ -409,20 +387,19 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 					Mix_PlayMusic(gmusic, 0);
 					tiger->handleInput();
 					goatdead++;
+
 					if (goatdead == 5)
 					{
 						indexOfGoat = 4;
+						std::cout << "inside goatdead 2nd" << std::endl;
 						TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 					}
 					gameTurn++;
 				}
 			}
 		}
-		else std::cout << "Invalid move" << std::endl;
-
 	}
 }
-
 
 bool PlayState::killer(int midx,int midy)
 {
@@ -437,10 +414,7 @@ bool PlayState::killer(int midx,int midy)
 
 		if (a == midx && b == midy)
 		{
-			
-			std::cout << m_SDLgameObjects[i]->getm_textureID() << std::endl;
 			TheTextureManager::Instance()->clearFromTextureMap(m_SDLgameObjects[i]->getm_textureID());
-
 			m_SDLgameObjects.erase(m_SDLgameObjects.begin() + i);
 			numberOfGoat -= 1;
 			return true;
@@ -451,7 +425,6 @@ bool PlayState::killer(int midx,int midy)
 
 void PlayState::dynamiccasting() 
 {
-
 	for (int i = 0; i <4; i++)
 	{
 		m_SDLgameObjectsTiger.push_back(dynamic_cast<SDLGameObject*>(m_gameObjects[i]));
@@ -467,13 +440,10 @@ void PlayState::dynamiccasting()
 
 }
 
-
 void PlayState::turnTiger()
 {
-	
 	static int palo = 25;
 	Vector2D* pMousePos2 = TheInputHandler::Instance()->getMousePosition();
-
 	int  mouspos_X, mouspos_Y;
 	//mouse position
 	mouspos_X = TheBoard::Instance()->getR_X();
@@ -508,8 +478,6 @@ void PlayState::turnTiger()
 	case 4:
 		limitmoves(m_SDLgameObjectsTiger[3]);
 		break;
-	
-
 	default:
 		break;
 
@@ -546,6 +514,7 @@ void PlayState::turnGoat() {
 		Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
 		Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/GOATSOUND.mp3");
 		Mix_PlayMusic(gmusic, 0);
+
 		m_SDLgameObjects[indexOfGoat-goatdead]->getPosition().setX(p);
 		m_SDLgameObjects[indexOfGoat-goatdead]->getPosition().setY(q);
 
@@ -582,90 +551,116 @@ bool PlayState :: dontoverlap(int a,int b)
 	return true;
 }
 
-bool PlayState :: goatWin(int a)
- { 
-	   int  right = 0;
-	 
-	
-	 int c = m_SDLgameObjects[a]->getPosition().getX();
-	 int d = m_SDLgameObjects[a]->getPosition().getY();
-	 int x = c / 200;
-	 int y = c / 200;
+bool PlayState::goatWin(int a)
+{
+	int  right = 0;
+
+	int c = m_SDLgameObjects[a]->getPosition().getX();
+	int d = m_SDLgameObjects[a]->getPosition().getY();
+	int x = c / 200;
+	int y = d / 200;
+	int x_pos = (((int)abs(m_SDLgameObjects[a]->getPosition().getX())) / 200) % 2;
+	int y_pos = (((int)abs(m_SDLgameObjects[a]->getPosition().getY())) / 200) % 2;
+
+	if ((x_pos == 1 && y_pos == 0) || (x_pos == 0 && y_pos == 1))
+	{
+		
+
+		for (int i = 0; i < numberOfGoat; i++)
+		{
+			int x1 = m_SDLgameObjects[i]->getPosition().getX();
+			int y1 = m_SDLgameObjects[i]->getPosition().getY();
 
 
-		 for (int i = 0; i < numberOfGoat; i++)
-		 {
 
-			
+			double xdistance = pow(abs(x1 - c), 2);
+			double ydistance = pow(abs(y1 - d), 2);
+			double distance = pow(xdistance + ydistance, 0.5);
 
-			 int x1 = m_SDLgameObjects[i]->getPosition().getX();
-			 int y1 = m_SDLgameObjects[i]->getPosition().getY();
-			 
+			if (distance == 200)
+			{
+				right++;
+			}
+			if (distance == 400)
+			{
+				right++;
+			}
+		}
+		if ((x==2 && y==1) || (x ==1 && y ==2 ) || (x ==2 && y ==3 ) || (x ==3 && y ==2 ))
+		{		
+					if (right == 7) {
+						std::cout << "right 5" << std::endl;
+						return true;
+					}
+		}else if (right == 5) 
+		{
+				return true;
+		}
+	}else  //Either of the condition must be satisfied to move diagonally
+	{
+		for (int i = 0; i < numberOfGoat; i++)
+		{
+			int x1 = m_SDLgameObjects[i]->getPosition().getX();
+			int y1 = m_SDLgameObjects[i]->getPosition().getY();
 
+			double xdistance = pow(abs(x1 - c), 2);
+			double ydistance = pow(abs(y1 - d), 2);
+			double distance = pow(xdistance + ydistance, 0.5);
 
-			 double xdistance = pow(abs(x1 - c), 2);
-			 double ydistance= pow(abs(y1 - d), 2);
-			 double distance = pow(xdistance+ydistance, 0.5);
-			 
-			 if (distance == 200)
-			 {
-				 right++;
-			 }
-			 if (distance ==200*sqrt(2))
-			 {
-				 right++;
-			 }
-			 if (distance == 400)
-			 {
-				 right++;
-			 }
-			 if (distance == 400*sqrt(2))
-			 {
-				 right++;
-			 }
-		 }
-		 if (x % 4 == 0 && y % 4 == 0) {
-			 if (right == 6) {
-				 return true;
-			 }
-		 }
-	     else if(x != 2 && y != 2) {
-			 if (x % 2 == 1 && y % 2==1) {
-				 if (right == 11) {
-					 return true;
-				 }
-			
-			 }
-			 else if (right == 5) {
-				 return true;
-			 }
-
-		 }
-		 else if (x % 2 == 0 && y % 2 == 0) {
-			 if (x == 2 && y == 2) {
-				 if (right == 16) {
-					 return true;
-				 }
-
-			 }
-			 else if (right == 10) {
-				 return true;
-			 }
-		 }
-		 else if (right == 7) {
-			 return true;
-		 }
-		 return false; 
- }
+			if (distance == 200)
+			{
+				right++;
+			}
+			if (distance == 200 * sqrt(2))
+			{
+				right++;
+			}
+			if (distance == 400)
+			{
+				right++;
+			}
+			if (distance == 400 * sqrt(2))
+			{
+				right++;
+			}
+		}
+		if (x % 2 == 0 && y % 2 == 0)
+		{
+			if (x == 2 && y == 2)
+			{
+				if (right == 16)
+				{
+					return true;
+				}
+			}else if ((x == 0 && y == 0) || (x == 4 && y == 0) || (x == 0 && y == 4) || (x == 4 && y == 4)) 
+			{
+				if (right == 6)
+				{
+					return true;
+				}
+			}else if (right == 10)
+			{
+				return true;
+			}
+		}else if (x != 2 && y != 2)
+		{
+			if (x % 2 == 1 && y % 2 == 1)
+			{
+				if (right == 11) 
+				{
+					return true;
+				}
+			}
+		}
+	}
+    return false;
+}
 void PlayState::goatWinWin()
 {
 	if ( goatWin(0)&&goatWin(1)&&goatWin(2)&&goatWin(3))
 	{
 		gameTurn = 0;
-
 		TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
-		
-
 	}
 }
 
@@ -748,9 +743,7 @@ void PlayState::turnMoveGoat() {
 	default:
 		break;
 	}
-
 }
-
 void PlayState::limitmovesGoat(SDLGameObject* goat) {
 	int x = TheBoard::Instance()->getR_X();
 	int y = TheBoard::Instance()->getR_Y();
