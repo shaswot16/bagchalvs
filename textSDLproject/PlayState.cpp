@@ -342,7 +342,9 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 					if (goatdead == 5)
 					{
 						indexOfGoat = 4;
-						std::cout << "inside goatdead 1st" << std::endl;
+						a = 0;
+						b = 0;
+						numberOfGoat = 24;
 						TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 					}
 					gameTurn++;
@@ -387,11 +389,13 @@ void PlayState::limitmoves(SDLGameObject* tiger)
 					Mix_PlayMusic(gmusic, 0);
 					tiger->handleInput();
 					goatdead++;
-
+					
 					if (goatdead == 5)
 					{
 						indexOfGoat = 4;
-						std::cout << "inside goatdead 2nd" << std::endl;
+						a = 0;
+						b = 
+						numberOfGoat = 24;0;
 						TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
 					}
 					gameTurn++;
