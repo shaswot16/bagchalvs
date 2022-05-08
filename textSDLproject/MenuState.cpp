@@ -44,9 +44,9 @@ bool MenuState::onEnter()
 	}
 	//CODE FOR PLAYING MUSIC IN MENUSTATE
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
-	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/SHER.mp3");
+	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/menuMusic.mp3");
 
-	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/SHER.mp3");
+	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/menuMusic.mp3");
 	Mix_PlayMusic(music, -1);
 	GameObject* titleText = new AnimatedGraphic(new LoaderParams(00, 00, 1200,1200 , "titletext"), 1);
 	GameObject* button1 = new MenuButton(new LoaderParams(680, 451, 247, 100, "playbutton"), s_menuToPlay);

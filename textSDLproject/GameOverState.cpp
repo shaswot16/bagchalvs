@@ -37,7 +37,7 @@ void GameOverState::render()
 bool GameOverState::onEnter()
 {
 	std::cout << "Gamover onEnter" << std::endl;
-	if (!TheTextureManager::Instance()->load("assets/gameover.png", "gameovertext", TheGame::Instance()->getRenderer()))
+	if (!TheTextureManager::Instance()->load("assets/over.png", "gameovertext", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
@@ -56,9 +56,9 @@ bool GameOverState::onEnter()
 
 	chunk = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/gameover.WAV");
 	Mix_PlayMusic(music, -1);
-	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 335, 102, "gameovertext"), 10);
-	GameObject* button1 = new MenuButton(new LoaderParams(200, 200, 228, 100, "mainbutton"), s_gameOverToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 244, 100, "restartbutton"), s_restartPlay);
+	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(00, 00, 1200, 1000, "gameovertext"), 10);
+	GameObject* button1 = new MenuButton(new LoaderParams(200, 200, 247, 100, "mainbutton"), s_gameOverToMain);
+	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 247, 180, "restartbutton"), s_restartPlay);
 
 	m_gameObjects.push_back(gameOverText);
 	m_gameObjects.push_back(button1);
