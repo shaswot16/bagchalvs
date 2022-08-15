@@ -28,13 +28,10 @@ void Player::update()
 void Player::handleInput()
 {
 	
-	
 	Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
 
 	int x = TheBoard::Instance()->filterX(pMousePos->getX());
 	int y = TheBoard::Instance()->filterY(pMousePos->getY());
-
-
 
 	m_position.setX(x);
 	m_position.setY(y);

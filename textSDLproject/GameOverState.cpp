@@ -22,6 +22,7 @@ void GameOverState::update()
 	{
  		m_gameObjects[i]->update();
 	}
+	std::cout << "Gamover update" << std::endl;
 }
 
 void GameOverState::render()
@@ -30,11 +31,13 @@ void GameOverState::render()
 	{
 		m_gameObjects[i]->draw();
 	}
+	std::cout << "Gamover render" << std::endl;
 }
 
 bool GameOverState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("assets/gameover.png", "gameovertext", TheGame::Instance()->getRenderer()))
+	std::cout << "Gamover onEnter" << std::endl;
+	if (!TheTextureManager::Instance()->load("assets/over.png", "gameovertext", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
@@ -53,9 +56,9 @@ bool GameOverState::onEnter()
 
 	chunk = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/gameover.WAV");
 	Mix_PlayMusic(music, -1);
-	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 335, 102, "gameovertext"), 10);
-	GameObject* button1 = new MenuButton(new LoaderParams(200, 200, 228, 100, "mainbutton"), s_gameOverToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 244, 100, "restartbutton"), s_restartPlay);
+	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(00, 00, 1200, 1000, "gameovertext"), 10);
+	GameObject* button1 = new MenuButton(new LoaderParams(200, 200, 247, 100, "mainbutton"), s_gameOverToMain);
+	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 247, 180, "restartbutton"), s_restartPlay);
 
 	m_gameObjects.push_back(gameOverText);
 	m_gameObjects.push_back(button1);
@@ -67,11 +70,14 @@ bool GameOverState::onEnter()
 
 bool GameOverState::onExit()
 {
+	std::cout << "Gamover onExit" << std::endl;
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
 		m_gameObjects[i]->clean();
 	}
+
 	m_gameObjects.clear();
+
 	Mix_FreeMusic(music);
 	Mix_FreeChunk(chunk);
 	TheTextureManager::Instance()->clearFromTextureMap("gameovertext");
@@ -97,5 +103,6 @@ void GameOverState::s_restartPlay()
 	Mix_Music* gmusic = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/BUTTONCLICK.mp3");
 	Mix_Chunk* gsound = Mix_LoadWAV("C:/users/shaswot paudel/Downloads/BUTTONCLICK.mp3");
 	Mix_PlayMusic(gmusic, 0);
+
 	TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }

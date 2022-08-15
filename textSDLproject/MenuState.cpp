@@ -15,6 +15,7 @@ void MenuState::update()
 	{
 		m_gameObjects[i]->update();
 	}
+	
 } 
 
 
@@ -43,13 +44,13 @@ bool MenuState::onEnter()
 	}
 	//CODE FOR PLAYING MUSIC IN MENUSTATE
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 1024);
-	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/SHER.mp3");
+	music = Mix_LoadMUS("C:/users/shaswot paudel/Downloads/menuMusic.mp3");
 
-	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/SHER.mp3");
+	chunk=Mix_LoadWAV("C:/users/shaswot paudel/Downloads/menuMusic.mp3");
 	Mix_PlayMusic(music, -1);
 	GameObject* titleText = new AnimatedGraphic(new LoaderParams(00, 00, 1200,1200 , "titletext"), 1);
-	GameObject* button1 = new MenuButton(new LoaderParams(100, 500, 247, 100, "playbutton"), s_menuToPlay);
-	GameObject* button2 = new MenuButton(new LoaderParams(100, 600, 247, 100, "exitbutton"), s_exitFromMenu);
+	GameObject* button1 = new MenuButton(new LoaderParams(680, 451, 247, 100, "playbutton"), s_menuToPlay);
+	GameObject* button2 = new MenuButton(new LoaderParams(680, 600, 247, 100, "exitbutton"), s_exitFromMenu);
 	m_gameObjects.push_back(titleText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
@@ -65,12 +66,17 @@ bool MenuState::onExit()
 		m_gameObjects[i]-> clean();
 	}
 	m_gameObjects.clear();
+	
 	TheTextureManager::Instance()->clearFromTextureMap("playbutton");
 	TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+	TheTextureManager::Instance()->clearFromTextureMap("titletext");
+
+
 	//CODE FOR STOPPPING TO PLAY MUSIC
 	Mix_FreeMusic(music);
 	Mix_FreeChunk(chunk);
 	std::cout << "exiting MenuState\n";
+	
 	return true;
 }
 

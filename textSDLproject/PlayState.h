@@ -35,12 +35,9 @@ public:
 	void goatWinWin();
 	void limitmoves(SDLGameObject*);
 	void limitmovesGoat(SDLGameObject*);
-
-	int m_currentFrame;
-
 	bool killer(int, int);
 	int x, y;
-	int a = 1;
+	int a = 0;
 	int b = 0;
 
 
